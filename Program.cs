@@ -10,7 +10,6 @@ namespace Charp_modul10_dz
         {
 
             var datasourse = File.ReadAllText("D:/test_json");
-            Console.WriteLine(datasourse);
 
             Client client = JsonConvert.DeserializeObject<Client>(datasourse);
 
@@ -24,7 +23,7 @@ namespace Charp_modul10_dz
 
                 string inputData; // временная переменная для данных, которые нужно установить или изменить
 
-                Console.WriteLine("1 - Consultant\n2 - Manager"); // выбор работника
+                Console.WriteLine("\n1 - Consultant\n2 - Manager"); // выбор работника
 
                 var position = (WorkerPosition)int.Parse(Console.ReadLine());
 
@@ -36,7 +35,8 @@ namespace Charp_modul10_dz
 
                         Console.WriteLine("Выбирите действие: \n" +
                             "1 - Вывести инф. о клиенте\n" +
-                            "2 - Изменить/Установить номер телефона клиента");
+                            "2 - Изменить/Установить номер телефона клиента\n" +
+                            "3 - Посмотреть историю изиенений\n");
 
                         inputCommand = (Command)int.Parse(Console.ReadLine());
 
@@ -55,6 +55,10 @@ namespace Charp_modul10_dz
                                 consultant.SetField(client, inputData, Command.SetPhoneNumber);
                                 break;
 
+                            case Command.ShowChanges:
+
+                                consultant.PrintChanges(client);
+                                break;
                         }
                         break;
 
@@ -65,9 +69,10 @@ namespace Charp_modul10_dz
                         Console.WriteLine("Выбирите действие: \n" +
                             "1 - Вывести инф. о клиенте\n" +
                             "2 - Изменить/Установить номер телефона клиента\n" +
-                            "3 - Изменить/Установить серию и номер паспорта\n" +
-                            "4 - Изменить/Установить Фамилию\n" +
-                            "5 - Изменить/Установить Имя");
+                            "3 - Посмотреть историю изиенений\n" +
+                            "4 - Изменить/Установить серию и номер паспорта\n" +
+                            "5 - Изменить/Установить Фамилию\n" +
+                            "6 - Изменить/Установить Имя");
 
                         inputCommand = (Command)int.Parse(Console.ReadLine());
 
@@ -83,6 +88,11 @@ namespace Charp_modul10_dz
                                 Console.WriteLine("Введите данные, которые хотите изменить/установить");
                                 inputData = Console.ReadLine();
                                 manager.SetField(client, inputData, Command.SetPhoneNumber);
+                                break;
+
+                            case Command.ShowChanges:
+
+                                manager.PrintChanges(client);
                                 break;
 
                             case Command.SetPassport:
@@ -110,16 +120,18 @@ namespace Charp_modul10_dz
                         break;
 
                 }
-                Console.WriteLine("Хотите продолжить ?\n" +
+                Console.WriteLine("\nХотите продолжить ?\n" +
                     "Да - клавиша Y\n" +
                     "Нет - любая другая");
                 if (Console.ReadKey().Key == ConsoleKey.Y)
                 {
                     appIsWork = true;
+                    Console.Clear();
                 }
                 else
                 {
                     appIsWork = false;
+                    Console.Clear();
                 }
 
             }
@@ -137,6 +149,7 @@ namespace Charp_modul10_dz
     {
         PrintInfo = 1,
         SetPhoneNumber,
+        ShowChanges,
         SetPassport,
         SetLastName,
         SetFirstName,

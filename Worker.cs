@@ -20,5 +20,17 @@ namespace Charp_modul10_dz
         {
             client.SetField(data, command, Position);
         }
+
+        public void PrintChanges(Client client)
+        {
+            Console.WriteLine(
+                $"\nКто последний изменил данные: {client.ChangeInformer.LastChangerName}\n" +
+                $"Последнее время изменения данных: {client.ChangeInformer.LastChangeTime}\n" +
+                $"Список измененных данных:"   );
+            foreach (var item in client.ChangeInformer.ChangedData)
+            {
+                Console.WriteLine($"Было: {item.Value} Стало: {item.Key}");
+            }
+        }
     }
 }
